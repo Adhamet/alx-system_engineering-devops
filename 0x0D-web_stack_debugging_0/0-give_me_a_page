@@ -2,4 +2,4 @@
 # Debugging apache
 
 echo "ServerName 127.0.0.2" >> /etc/apache2/apache2.conf
-sudo apachectl start
+apachectl start
