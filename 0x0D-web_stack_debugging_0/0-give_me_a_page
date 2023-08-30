@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# apache 2
+# Debugging apache
 
-sudo service apache2 start
-sudo echo "Hello Holberton" | /var/www/html/index.html
+echo "ServerName 127.0.0.1" >> /etc/apache2/apache2.conf
+sudo apachectl start
