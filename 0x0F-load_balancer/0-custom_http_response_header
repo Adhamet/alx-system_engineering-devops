@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+# configuring web-02 to be identical to web-02
+sudo apt-get update -y
+sudo apt-get install nginx -y
+sudo ufw allow 'Nginx HTTP'
+echo 'Hello World!' > /var/www/html/index.nginx-debian.htm
+echo 'Hello World!' > /var/www/html/index.htm
+echo "Ceci n'est pas une page" > /var/www/html/404.html
+echo "server {
+    listen 80;
+    listen [::]:80 default_server;
+    root   /etc/nginx/html;
+    index  index.html;
+    location /redirect_me {
+        return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
+    }
+    error_page 404 /404.html;
+    location = /404.html{
+        root /etc/nginx/html;
+        internal;
+    }
+}" > /etc/nginx/sites-available/default
+sudo service nginx restart
