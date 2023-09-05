@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 # configuring web-02 to be identical to web-02
-sudo apt-get update -y
-sudo apt-get install nginx -y
-sudo ufw allow 'Nginx HTTP'
+apt-get update -y
+apt-get install nginx -y
+ufw allow 'Nginx HTTP'
+mkdir -p /var/www/html /var/www/error
 echo 'Hello World!' > /var/www/html/index.nginx-debian.htm
 echo 'Hello World!' > /var/www/html/index.htm
 echo "Ceci n'est pas une page" > /var/www/html/404.html
@@ -10,7 +11,7 @@ sudo echo "server {
     listen 80;
     listen [::]:80 default_server;
     root   /etc/nginx/html;
-    index  index.html;
+    index  index.html index.htm index.nginx-debian.htm;
     server_name _;
     add_header X-Served-By \$hostname;
     location /redirect_me {
