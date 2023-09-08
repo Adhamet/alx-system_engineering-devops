@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+# displays subdomains' info
+
+function domain_check() {
+    subdomains=("www" "lb-01" "web-01" "web-02")
+
+    for subdomain in "${subdomains[@]}"; do
+        dig "${subdomain}"."$1" | grep -A1 'ANSWER SECTION:' | \
+        awk 'FNR == 2 {printf "The subdomain %s is a %s record and points to %s\n", var, $4, $5}' var="$subdomain"
+    done
+}
+
+function subdomain_check() {
+    dig "${2}"."$1" | grep -A1 'ANSWER SECTION:' | \
+    awk 'FNR == 2 {printf "The subdomain %s is a %s record and points to %s\n", var, $4, $5}' var="$2"
+}
+
+
+if [ $# -eq 0 ];
+then
+    echo "Please provide a valid domain name"
+elif [ $# -eq 1 ];
+then
+    domain_check "$1"
+else
+    subdomain_check "$1" "$2"
+fi
