@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+# nginx must be running as nginx user
+# nginx must be listening on all active IPs on port 8080
+# You cannot use apt-get remove
+
+adduser nginx
+groups nginx
+usermod -aG sudo nginx
+sudo -u nginx service nginx stop
+chmod 644 /etc/nginx/nginx.conf
+rm /etc/nginx/conf.d/default.conf
+cat > /etc/nginx/conf.d/custom.conf <<EOF
+server {
+    listen 8080;
+    server_name _;
+}
+EOF
+
+nginx
