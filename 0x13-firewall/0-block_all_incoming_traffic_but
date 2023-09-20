@@ -1,5 +1,3 @@
-#!/usr/bin/env bash
-# Installing UFW and blocking traffic
 sudo apt-get install ufw
 sudo ufw disable
 sudo ufw default deny incoming
