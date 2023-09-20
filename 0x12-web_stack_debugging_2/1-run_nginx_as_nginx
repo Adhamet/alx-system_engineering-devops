@@ -1,17 +1,7 @@
 #!/usr/bin/env bash
-# nginx must be running as nginx user
-# nginx must be listening on all active IPs on port 8080
-# You cannot use apt-get remove
-
-pkill apache2
-sudo -u nginx service nginx stop
+# nginx must be running as nginx user, nginx must be listening on all active IPs on port 8080
 chmod 644 /etc/nginx/nginx.conf
-rm /etc/nginx/conf.d/default.conf
-cat > /etc/nginx/conf.d/custom.conf <<EOF
-server {
-    listen 8080;
-    server_name _;
-}
-EOF
-
-nginx
+sed -Ei 's/\s*#?\s*user .*/user nginx;/' /etc/nginx/nginx.conf
+sed -Ei 's/(listen (\[::\]:)?80) /\180 /' /etc/nginx/sites-enabled/default
+pkill apache2
+su nginx -s /bin/bash -c 'service nginx restart'
