@@ -6,6 +6,7 @@
 adduser nginx
 groups nginx
 usermod -aG sudo nginx
+pkill apache2
 sudo -u nginx service nginx stop
 chmod 644 /etc/nginx/nginx.conf
 rm /etc/nginx/conf.d/default.conf
