@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Run nginx as nginx user and config nginx
-sudo -u nginx service nginx stop
+chmod 644 /etc/nginx/nginx.conf
 sed -i 's/#user www-data/user nginx/' /etc/nginx/nginx.conf
-sed -i 's/listen 80;/listen 8080;/' /etc/nginx/sites-available/default
-pkill apache2
+sed -i 's/listen 80;/listen 8080;/' /etc/nginx/sites-available/
+pkill apache2default
 sudo -u nginx service nginx restart
